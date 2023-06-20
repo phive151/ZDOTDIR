@@ -1,3 +1,11 @@
-.vscode/*
+# This is a list of ignored files and folders for VS Code
+# Ignore the lnb/ folder
 lnb/
+# Ignore the workspace settings
 zsh.code-workspace
+# Ignore any environment files
+*.env*
+# Ignore backup files
+*bak*
+# Ignore error logs
+.errlog

@@ -20,23 +20,18 @@ SAVEHIST=10000
 setopt appendhistory histignorealldups autocd
 
 # For AI/ML Development
-
-
-
-function source_dotenv() {
-  local dev_env_file="${HOME}/.config/development/environment/dotenv/.env"
-  local local_env_file="${ZDOTDIR}/.env"
-   if [[ -f "${dev_env_file}" ]]; then
-    cp -p "${dev_env_file}" "${local_env_file}.bak.$(date +%Y%m%d-%H%M%S)"
-    if source "${local_env_file}"; then
-      echo "Sourced ${local_env_file}"
-    else
-      echo "Failed to source ${local_env_file}"
-      exit 1
-    fi
-  else
-    echo "${dev_env_file} not found"
-    exit 1
-fi 
-}
-source_dotenv
+# function source_dotenv() {
+#   local dev_env_file="$HOME/.config/development/environment/dotenv/.env"
+#   local local_env_file="${ZDOTDIR:-$HOME}/.env"
+#   if [[ -f "$dev_env_file" ]]; then
+#     local timestamp="$(date +%Y%m%d-%H%M%S)"
+#     local backup_file="${local_env_file}.${timestamp}"
+#     cp "$dev_env_file" "$backup_file" && source "$backup_file"
+#   elif [[ -f "$local_env_file" ]]; then
+#     source "$local_env_file"
+#   else
+#     echo "Error: dotenv file not found." >&2
+#     return 1
+# fi 
+# }
+# source_dotenv
