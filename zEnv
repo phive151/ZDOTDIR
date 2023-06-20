@@ -20,11 +20,16 @@ SAVEHIST=10000
 setopt appendhistory histignorealldups autocd
 
 # For AI/ML Development
+<<<<<<< HEAD
 
 LVCOI_DEV_ENV="${HOME}/.config/development/environment/dotenv/.env"
 LOCALENV="$(cat << $LVCOI_DEV_ENV)"
 
 if [[ -f $LVCOI_DEV_ENV ]]; then
   cat $LVCOI_DEV_ENV > $LOCALENV
+=======
+LVCOI_DEV_ENV="${HOME}/.config/development/environment/dotenv/.env"
+if [[ -f $LVCOI_DEV_ENV ]]; then
+>>>>>>> 29b512a45f4e92de7c50dcc65cb425e365048bd6
   source $LVCOI_DEV_ENV
 fi 
