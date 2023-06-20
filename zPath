@@ -1,12 +1,24 @@
-# Path
- export GOBIN="/root/go/bin"
- export GHD_PATH="/mnt/c/Users/OnEPh/AppData/Local/GitHubDesktop"
- export FLTR_PATH="/opt/flutter/bin"
- export ASDK_PATH="/usr/share/android-studio/bin"
- export PATH="~/.local/bin:/snap/bin:/usr/sandbox/:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin"
+# Add directories to PATH if they are not already in it
+add_to_path() {
+  local dir
+  for dir in "$@"; do
+    if [[ ! ":$PATH:" =~ ":$dir:" ]]; then
+      PATH="$PATH:$dir"
+    fi
+  done
+}
 
-
-
-
-
- export PATH="${GOBIN}:${GHD_PATH}:${FLTR_PATH}:${ASDK_PATH}:${PATH}"
+# current paths 
+path_array=(
+    /usr/local/bin
+    /usr/local/sbin
+    ~/.local/bin
+    /usr/bin
+    /usr/sbin
+    ~/.config/vscode-server/extensions/
+    /c/Users/lah/.vscode/extensions/ms-vscode-remote.remote-wsl-0.79.5/scripts/ 
+)
+ # Add directories to PATH
+add_to_path "${path_array[@]}"
+ # Export PATH variable
+export PATH

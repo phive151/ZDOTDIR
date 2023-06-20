@@ -48,3 +48,4 @@ function ai() {
 function sa() {
 	apt search "$@"
 }
+
