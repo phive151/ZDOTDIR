@@ -27,8 +27,8 @@ function source_dotenv() {
   local dev_env_file="${HOME}/.config/development/environment/dotenv/.env"
   local local_env_file="${ZDOTDIR}/.env"
    if [[ -f "${dev_env_file}" ]]; then
-    cp "${dev_env_file}" "${local_env_file}"
+    cp "${dev_env_file}" "${local_env_file{,."$(date +%Y%m%d-%H%M%S)"}}"
     source "${local_env_file}"
 fi 
 }
-sudo source_dotenv
+source_dotenv
