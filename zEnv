@@ -12,16 +12,6 @@ zstyle ':vcs_info:*' stagedstr ' +'
 # Set the format of the Git information for vcs_info
 zstyle ':vcs_info:git:*' formats       '(%b%u%c)'
 zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'
-if [ -f /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh ]; then
-  source /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-  # Select all suggestion instead of top on result only
-  zstyle ':autocomplete:tab:*' insert-unambiguous yes
-  zstyle ':autocomplete:tab:*' widget-style menu-select
-  zstyle ':autocomplete:*' min-input 2
-  bindkey $key[Up] up-line-or-history
-  bindkey $key[Down] down-line-or-history
-fi
-
 
 # Save type history for completion and easier life
 HISTFILE=~/.zsh_history
@@ -29,5 +19,12 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory histignorealldups autocd
 
+# For AI/ML Development
 
-SAPI="NgsSHfFbJdks5XWWJWyWdylOL7iuFAce"
+LVCOI_DEV_ENV="${HOME}/.config/development/environment/dotenv/.env"
+LOCALENV="$(cat << $LVCOI_DEV_ENV)"
+
+if [[ -f $LVCOI_DEV_ENV ]]; then
+  cat $LVCOI_DEV_ENV > $LOCALENV
+  source $LVCOI_DEV_ENV
+fi 
