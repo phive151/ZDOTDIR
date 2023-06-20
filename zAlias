@@ -37,42 +37,6 @@ alias zc='nvim ${ZDOTDIR}/.zshrc'
 alias simp='python -m http.server 8000'
 alias zd='cd $ZDOTDIR'
 
-# function _ga {
-preexec () {
-  if [[ -d ./.git/**/(*) ]] ; then
-    local _git_aliases
-    _git_aliases() {
-      alias g='git'
-      alias gaa='git add all'
-      alias gb='git branch'
-      alias gcb='git checkout master'
-      alias gdc='git diff --cached'
-      alias gf='git fetch'
-      alias gm='git merge'
-      alias gp='git push'
-      alias glog='git log --oneline --decorate --graph'
-    }
-    _git_aliases 
-  else 
-    if 
-    [[ -d ${OLDPWD}/.git ]] && ! [[ -z _git_unalias ]]; then
-      local _git_unalias
-      _git_unalias() {
-      unalias gaa='git add all'
-      unalias gb='git branch'
-      unalias gcb='git checkout master'
-      unalias gdc='git diff --cached'
-      unalias gf='git fetch'
-      unalias gm='git merge'
-      unalias gp='git push'
-      unalias glog='git log --oneline --decorate --graph'
-      unalias g='git'
-      }
-      unset _git_unalias
-    fi
-  fi
-}
-
 # Global Aliases
 
 alias -g LS='| less --mouse'

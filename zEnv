@@ -15,23 +15,29 @@ zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'
 
 # Save type history for completion and easier life
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt appendhistory histignorealldups autocd
+ZDOTDIR=
 
+
+
+
+: <<'COMMENT'
 # For AI/ML Development
-# function source_dotenv() {
-#   local dev_env_file="$HOME/.config/development/environment/dotenv/.env"
-#   local local_env_file="${ZDOTDIR:-$HOME}/.env"
-#   if [[ -f "$dev_env_file" ]]; then
-#     local timestamp="$(date +%Y%m%d-%H%M%S)"
-#     local backup_file="${local_env_file}.${timestamp}"
-#     cp "$dev_env_file" "$backup_file" && source "$backup_file"
-#   elif [[ -f "$local_env_file" ]]; then
-#     source "$local_env_file"
-#   else
-#     echo "Error: dotenv file not found." >&2
-#     return 1
-# fi 
-# }
-# source_dotenv
+function source_dotenv() {
+  local dev_env_file="$HOME/.config/development/environment/dotenv/.env"
+  local local_env_file="${ZDOTDIR:-$HOME}/.env"
+  if [[ -f "$dev_env_file" ]]; then
+    local timestamp="$(date +%Y%m%d-%H%M%S)"
+    local backup_file="${local_env_file}.${timestamp}"
+    cp "$dev_env_file" "$backup_file" && source "$backup_file"
+  elif [[ -f "$local_env_file" ]]; then
+    source "$local_env_file"
+  else
+    echo "Error: dotenv file not found." >&2
+    return 1
+fi 
+}
+source_dotenv
+COMMENT

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
- set_zsh_config_directory() {
+ set_zdot_directory() {
   # Check if the script is running in Zsh shell
   if [ ! -z "$ZSH_VERSION" ]; then
     echo "Error: This script requires Zsh shell to run." >&2
@@ -11,38 +11,39 @@
     exit 1
   fi
    # Get the absolute path of the specified directory
-  local zsh_config_dir="$(realpath -s "$1")"
+  local ZDOTDIR="$(realpath -s "$1")"
    # Check if the specified directory is under the home directory
-  if [[ "${zsh_config_dir}" != "${HOME}/"* ]]; then
+  if [[ "${ZDOTDIR}" != "${HOME}/"* ]]; then
     echo "Error: Invalid directory specified. Please specify a directory under your home directory." >&2
     exit 1
   fi
    # Create the specified directory if it does not exist
-  if [ ! -d "${zsh_config_dir}" ]; then
-    if ! mkdir -p "${zsh_config_dir}"; then
-      echo "Error: Failed to create directory ${zsh_config_dir}." >&2
+  if [ ! -d "${ZDOTDIR}" ]; then
+    if ! mkdir -p "${ZDOTDIR}"; then
+      echo "Error: Failed to create directory ${ZDOTDIR}." >&2
       exit 1
     fi
   fi
    # Backup the existing .zshrc file and create a symlink to the new .zshrc file
-  backup_and_symlink_zshrc_file "${zsh_config_dir}/.zshrc"
-  echo "ZSH configuration directory set to ${zsh_config_dir}."
+  backup_and_symlink_zshrc_config_file "${ZDOTDIR}/.zshrc"
+  printf "ZSH configuration directory set to %s." "$ZDOTDIR"
 }
-backup_and_symlink_zshrc_file() {
-  local zshrc_file="$1"
-  local timestamp="$(date +%s)"
-  local backup_file="${zshrc_file}.bak.${timestamp}"
+backup_and_symlink_zshrc_config_file() {
+  local -r zshrc_config_file="$1"
+  local -r timestamp="$(date +%s)"
+  local -r backup_file="./backups/${timestamp}.zshrc.bak"
    # Check if the .zshrc file already exists
-  if [ -e "${zshrc_file}" ]; then
+  if [ -e "${zshrc_config_file}" ]; then
     # Backup the existing .zshrc file
-    mv -n "${zshrc_file}" "${backup_file}"
+    cp "$zshrc_config_file" "$backup_file"
   fi
    # Create a symlink to the new .zshrc file
-  ln -s "${backup_file}" "${zshrc_file}"
-   if [ ! -L "${zshrc_file}" ]; then
-    echo "Error: Failed to create symlink to ${zshrc_file}." >&2
+    home_dot_zshrc="${HOME}/.zshrc"
+    ln -srf "${zshrc_config_file}" "${home_dot_zshrc}"
+  if [ ! -L "${home_dot_zshrc}" ]; then
+    echo "Error: Failed to create symlink to ${home_dot_zshrc}." >&2
     exit 1
   fi
 }
- # Call the set_zsh_config_directory function with the specified directory
-set_zsh_config_directory "${HOME}/.config/zsh"
+ # Call the set_ZDOTDIRectory function with the specified directory
+set_zdot_directory "${HOME}/.config/zsh/"

@@ -9,3 +9,5 @@ zsh.code-workspace
 *bak*
 # Ignore error logs
 .errlog
+# Bakups
+backups/*
