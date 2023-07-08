@@ -1,31 +1,26 @@
 ## ZSHRC
+zdir=$(dirname "$0")
+
 declare -A zfiles=( 
-    [zalias]="$PWD/zalias" 
-    [zcolor]="$PWD/zcolor" 
-    [zenv]="$PWD/zenv" 
-    [zfunc]="$PWD/zfunc" 
-    [zpath]="$PWD/zpath" 
-    [zprompt]="$PWD/zprompt" 
+    [zalias]="$zdir/zalias" 
+    [zcolor]="$zdir/zcolor" 
+    [zenv]="$zdir/zenv" 
+    [zfunc]="$zdir/zfunc" 
+    [zpath]="$zdir/zpath" 
+    [zprompt]="$zdir/zprompt" 
 )
 function main() {
-  for file in "${zfiles[@]}"; do
+  for file in $zdir/z*; do
       if [[ -f "$file" ]]; then
           source "$file"
       fi
   done
 }
-
+set -x
 ## Source Files
-
-
-_greeting=$(cat << EOF
-echo -e "${BIGreen}######################${BYellow} Welcome ${BRed}######################"
-echo -e "${BRed} ######################${BIGreen} ${USER} ${BYellow}#######################"
-echo -e "${BYellow}###############${BRed} to WSL (Windows Subsystem) ${BIGreen}##############${Color_off}"
-echo -e "${BIBlue}######################${BRed} ${HOSTNAME} ${BIBLUE}LINUX ${BIGreen}######################${Color_off}"
-echo ""
-sleep 1
-EOF
-)
 main
-echo $_greeting
+
+echo "${BIGreen}######################${BYellow} Welcome ${BRed}######################"
+echo "${BRed}######################${BIGreen} ${USER} ${BYellow}#######################"
+echo "${BYellow}#############${BRed} to WSL (Windows Subsystem) ${BIGreen}############${Color_off}"
+echo "${BIBlue}#######################${BRed} ${HOST} ${BIBLUE} LINUX ${BIGreen}#######################${Color_off}"
