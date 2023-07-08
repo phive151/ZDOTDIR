@@ -16,4 +16,8 @@ zsh.code-workspace
 # Bakups
 .github
 backups/*
+.zcompdump
+.zshrc
+fresh.sh
+
 >>>>>>> 06ecc68 (On branch TestingU)
