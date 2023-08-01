@@ -1,0 +1,57 @@
+# Autoload zsh add-zsh-hook and vcs_info functions (-U autoload w/o substition, -z use zsh style)
+autoload -Uz add-zsh-hook vcs_info
+# Enable substitution in the prompt.
+setopt prompt_subst appendhistory histignorealldups autocd extendedglob
+# Run vcs_info just before a prompt is displayed (precmd)
+add-zsh-hook precmd vcs_info 
+# Enable checking for (un)staged changes, enabling use of %u and %c
+zstyle ':vcs_info:*' check-for-changes true
+# Set custom strings for an unstaged vcs repo changes (*) and staged changes (+)
+zstyle ':vcs_info:*' unstagedstr ' *'
+zstyle ':vcs_info:*' stagedstr ' +'
+# Set the format of the Git information for vcs_info
+zstyle ':vcs_info:git:*' formats       '(%b%u%c)'
+zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'
+
+# Save type history for completion and easier life
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+
+SAPI="NgsSHfFbJdks5XWWJWyWdylOL7iuFAce"
+
+zsh_autolibs() {
+  zlibs=(
+    "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    "/usr/share/zsh-syntax-highlighting/"
+    "/user/share/zsh-autocompletion/"
+  )
+   
+  for zlib in "${zlibs[@]}"; do
+    if [[ -d $zlibs ]]; then
+      source "$zlib"
+    fi
+  done
+}
+
+zsh_autolibs
+
+
+: <<'COMMENT'
+# For AI/ML Development
+function source_dotenv() {
+  local dev_env_file="$HOME/.config/development/environment/dotenv/.env"
+  local local_env_file="${ZDOTDIR:-$HOME}/.env"
+  if [[ -f "$dev_env_file" ]]; then
+    local timestamp="$(date +%Y%m%d-%H%M%S)"
+    local backup_file="${local_env_file}.${timestamp}"
+    cp "$dev_env_file" "$backup_file" && source "$backup_file"
+  elif [[ -f "$local_env_file" ]]; then
+    source "$local_env_file"
+  else
+    echo "Error: dotenv file not found." >&2
+    return 1
+fi 
+}
+source_dotenv
+COMMENT

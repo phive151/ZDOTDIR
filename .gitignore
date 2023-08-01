@@ -1,1 +1,23 @@
+<<<<<<< HEAD
 ./.*
+=======
+# This is a list of ignored files and folders for VS Code
+# Ignore the lnb/ folder
+.vscode/
+lnb/
+# Ignore the workspace settings
+zsh.code-workspace
+# Ignore any environment files
+*.env*
+# Ignore backup files
+*bak*
+# Ignore error logs
+.errlog
+# Bakups
+.github
+backups/*
+.zcompdump
+.zshrc
+fresh.sh
+
+>>>>>>> 06ecc68 (On branch TestingU)
